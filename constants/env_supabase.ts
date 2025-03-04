@@ -1,0 +1,3 @@
+export const supa_URL =  'https://ajjhxbvkjxlgscryrmbg.supabase.co';
+
+export const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFqamh4YnZranhsZ3NjcnlybWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMzkyMjEsImV4cCI6MjA1NjYxNTIyMX0.rjTuErCfh1LE-CpiSUQmxXvqPV9aO3VS0wPvMBfcyBs'
