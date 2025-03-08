@@ -1,62 +1,39 @@
 import colors from "@/constants/colors";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { useState } from "react";
-import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import { supabase } from "@/src/lib/supabase";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { supabase } from "../../../lib/supabase";
 
-export default function Signup(){
+export default function Login(){
+
     const [ email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-
-   async function handleSignUp(){
-    // setLoading(true);
+        const [name, setName] = useState('');
+        const [password, setPassword] = useState('');
+        const [loading, setLoading] = useState(false);
+    
+async function handleSignUp(){
+           setLoading(true);
     const {data , error } = await supabase.auth.signUp({
-    email,
-    password,
-    options:{
-        data:{
-            name
-        }
-    }
-})
-// setLoading(false)
-// router.replace('/(auth)/signin/page');
-        
-    }
+        email,
+        password,
+    })
+    setLoading(false)
+    router.replace('/');
+}
     return(
-        <SafeAreaView style={{flex: 1}}>
-        <ScrollView style={{flex: 1, backgroundColor: colors.white }}>
         <View style={styles.container}>
             <View style={styles.header}>
-                <Pressable style={styles.backButton}
-                onPress={()=> router.back()}
-                >
-                    <Ionicons name="arrow-back" zise={24} color={colors.white} />
-                </Pressable>
             <Text style={styles.textLogo}>Auth<Text style={{color: colors.green}}>App</Text></Text> 
-            <Text style={styles.slogan}> Criar Conta</Text>
+            <Text style={styles.slogan}> Autenticando a Programação</Text>
             </View>
 
             <View style={styles.form}>
-            <View>
-                    <Text style={styles.label}>Nome Completo</Text>
-                    <TextInput
-                    placeholder="Digite seu nome completo..."
-                    style={styles.input}
-                    value={name}    
-                    onChangeText={setName}
-                    />
-                </View>
                 <View>
                     <Text style={styles.label}>E-mail</Text>
                     <TextInput
                     placeholder="Digite seu email..."
+                    keyboardType="email-address"
                     style={styles.input}
-                    value={email}    
-                    onChangeText={setEmail}
                     />
                 </View>
                 <View>
@@ -65,28 +42,30 @@ export default function Signup(){
                     secureTextEntry
                     placeholder="Digite sua senha..."
                     style={styles.input}
-                    value={password}
-                    onChangeText={setPassword}
                     />
                 </View>
                 <Pressable style={styles.button} onPress={handleSignUp}>
-                    <Text style={styles.buttonText}>{loading ? 'Cadastrando...' : 'Cadastrar'}</Text>
+                    <Text style={styles.buttonText}>{loading ? 'Acessando...' : 'Acessar'}</Text>
                 </Pressable>
 
-                
+                <Link href={"/(auth)/signup/page"} style={styles.link}>
+                    <Text> Não tem conta? <Text style={styles.textSpan}>cadastre-se</Text> </Text>
+                </Link>
             </View>
         </View>
-        </ScrollView>
-        </SafeAreaView>
     )
 }
+
 
 const styles = StyleSheet.create({
 container:{
     flex: 1,
     paddingTop: 34,
     backgroundColor: colors.zinc
-
+},
+textSpan:{
+fontSize: 18,
+fontWeight: 'bold'
 },
 header:{
 paddingLeft: 14,
@@ -140,11 +119,10 @@ color: colors.white,
 fontSize: 16,
 fontWeight: 'black'
 },
-backButton:{
-    backgroundColor: colors.green,
-    alignSelf: "flex-start",
-    borderRadius: 8,
-    padding: 8,
-    marginBottom: 8
-    }
-    })
+link:{
+    marginTop: 16,
+    fontSize: 16,
+    textAlign: "right",
+    paddingRight: 16
+}
+})
